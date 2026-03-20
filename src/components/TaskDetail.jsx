@@ -4,8 +4,8 @@ import { fetchComments, addComment, closeIssue, setLabels } from '../api/github'
 import { PRIORITY_LABELS } from '../utils/labels'
 import CommentForm from './CommentForm'
 
-const REPO_OWNER = 'ishiinorifumi-ws'
-const REPO_NAME = 'my-tasks'
+const REPO_OWNER = import.meta.env.VITE_REPO_OWNER || ''
+const REPO_NAME = import.meta.env.VITE_REPO_NAME || ''
 
 function TaskDetail({ issue, onUpdate }) {
   const [comments, setComments] = useState([])

@@ -1,5 +1,5 @@
-const REPO_OWNER = 'ishiinorifumi-ws'
-const REPO_NAME = 'my-tasks'
+const REPO_OWNER = import.meta.env.VITE_REPO_OWNER || ''
+const REPO_NAME = import.meta.env.VITE_REPO_NAME || ''
 const API_BASE = 'https://api.github.com'
 
 function getToken() {
