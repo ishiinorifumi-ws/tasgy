@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import Markdown from 'react-markdown'
-import { fetchComments, addComment, closeIssue, setLabels } from '../api/github'
+import { fetchComments, closeIssue, setLabels } from '../api/github'
 import { PRIORITY_LABELS } from '../utils/labels'
 import CommentForm from './CommentForm'
 
