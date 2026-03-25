@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
+import Markdown from 'react-markdown'
 import { getCategoryLabel } from '../utils/labels'
 import { parseDeadline, getDeadlineInfo } from '../utils/deadline'
 import { fetchComments } from '../api/github'
@@ -99,7 +100,7 @@ function TaskCard({ issue, onUpdate }) {
                   minute: '2-digit',
                 })}
               </span>
-              <p className="mt-1 whitespace-pre-wrap">{latestComment.body}</p>
+              <div className="mt-1 prose prose-sm max-w-none"><Markdown>{latestComment.body}</Markdown></div>
             </div>
           ) : (
             <p className="text-xs text-gray-400">コメントなし</p>

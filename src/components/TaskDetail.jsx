@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import Markdown from 'react-markdown'
 import { closeIssue, setLabels } from '../api/github'
+
 import { PRIORITY_LABELS } from '../utils/labels'
 import CommentForm from './CommentForm'
 
@@ -79,7 +80,7 @@ function TaskDetail({ issue, comments, loadingComments, onCommentAdded, onUpdate
                     minute: '2-digit',
                   })}
                 </span>
-                <div className="mt-1 whitespace-pre-wrap">{comment.body}</div>
+                <div className="mt-1 prose prose-sm max-w-none"><Markdown>{comment.body}</Markdown></div>
               </div>
             ))}
           </div>
