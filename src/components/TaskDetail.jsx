@@ -1,30 +1,19 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Markdown from 'react-markdown'
-import { fetchComments, closeIssue, setLabels } from '../api/github'
+import { closeIssue, setLabels } from '../api/github'
 import { PRIORITY_LABELS } from '../utils/labels'
 import CommentForm from './CommentForm'
 
 const REPO_OWNER = import.meta.env.VITE_REPO_OWNER || ''
 const REPO_NAME = import.meta.env.VITE_REPO_NAME || ''
 
-function TaskDetail({ issue, onUpdate }) {
-  const [comments, setComments] = useState([])
-  const [loadingComments, setLoadingComments] = useState(true)
+function TaskDetail({ issue, comments, loadingComments, onCommentAdded, onUpdate }) {
   const [operating, setOperating] = useState(false)
-
-  useEffect(() => {
-    setLoadingComments(true)
-    fetchComments(issue.number)
-      .then(setComments)
-      .catch(() => setComments([]))
-      .finally(() => setLoadingComments(false))
-  }, [issue.number])
 
   // 優先度ラベルを変更
   const handlePriorityChange = async (newPriorityName) => {
     setOperating(true)
     try {
-      // 既存ラベルから優先度ラベルを除去し、新しいものを追加
       const currentLabels = issue.labels.map((l) => l.name)
       const withoutPriority = currentLabels.filter(
         (name) => !PRIORITY_LABELS.some((p) => p.name === name)
@@ -50,11 +39,6 @@ function TaskDetail({ issue, onUpdate }) {
     } finally {
       setOperating(false)
     }
-  }
-
-  // コメント追加後
-  const handleCommentAdded = (newComment) => {
-    setComments((prev) => [...prev, newComment])
   }
 
   // 現在の優先度ラベル
@@ -103,7 +87,7 @@ function TaskDetail({ issue, onUpdate }) {
       </div>
 
       {/* メモ追記 */}
-      <CommentForm issueNumber={issue.number} onCommentAdded={handleCommentAdded} />
+      <CommentForm issueNumber={issue.number} onCommentAdded={onCommentAdded} />
 
       {/* 優先度変更ボタン */}
       <div className="border-t border-gray-50 pt-3 mt-3">
