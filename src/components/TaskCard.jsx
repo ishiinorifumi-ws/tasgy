@@ -99,7 +99,7 @@ function TaskCard({ issue, onUpdate }) {
                   minute: '2-digit',
                 })}
               </span>
-              <p className="mt-1 line-clamp-2 whitespace-pre-wrap">{latestComment.body}</p>
+              <p className="mt-1 whitespace-pre-wrap">{latestComment.body}</p>
             </div>
           ) : (
             <p className="text-xs text-gray-400">コメントなし</p>
