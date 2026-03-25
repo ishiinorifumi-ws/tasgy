@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
 import { closeIssue, setLabels } from '../api/github'
-
 import { PRIORITY_LABELS } from '../utils/labels'
 import CommentForm from './CommentForm'
 
@@ -52,7 +52,7 @@ function TaskDetail({ issue, comments, loadingComments, onCommentAdded, onUpdate
       {/* Issue 本文 */}
       {issue.body && (
         <div className="py-3 text-xs text-gray-600 leading-relaxed prose prose-sm max-w-none">
-          <Markdown>{issue.body}</Markdown>
+          <Markdown remarkPlugins={[remarkGfm]}>{issue.body}</Markdown>
         </div>
       )}
 
@@ -66,8 +66,8 @@ function TaskDetail({ issue, comments, loadingComments, onCommentAdded, onUpdate
         ) : comments.length === 0 ? (
           <p className="text-xs text-gray-400">コメントなし</p>
         ) : (
-          <div className="space-y-2 max-h-48 overflow-y-auto">
-            {comments.slice(-5).map((comment) => (
+          <div className="space-y-2">
+            {comments.map((comment) => (
               <div
                 key={comment.id}
                 className="bg-gray-50 rounded-lg p-2 text-xs text-gray-600"
@@ -80,7 +80,7 @@ function TaskDetail({ issue, comments, loadingComments, onCommentAdded, onUpdate
                     minute: '2-digit',
                   })}
                 </span>
-                <div className="mt-1 prose prose-sm max-w-none"><Markdown>{comment.body}</Markdown></div>
+                <div className="mt-1 prose prose-sm max-w-none"><Markdown remarkPlugins={[remarkGfm]}>{comment.body}</Markdown></div>
               </div>
             ))}
           </div>
