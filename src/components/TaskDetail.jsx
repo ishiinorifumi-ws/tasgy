@@ -35,7 +35,6 @@ function TaskDetail({ issue, comments, loadingComments, onCommentAdded, onUpdate
     try {
       await closeIssue(issue.number)
       if (onClosed) onClosed()
-      onUpdate()
     } catch (e) {
       alert('完了処理に失敗しました: ' + e.message)
     } finally {
