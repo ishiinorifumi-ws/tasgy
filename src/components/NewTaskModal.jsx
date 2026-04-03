@@ -15,10 +15,15 @@ function NewTaskModal({ onClose, onCreated }) {
     e.preventDefault()
     if (!title.trim()) return
 
+    let effectivePriority = priority
+    if (!effectivePriority) {
+      if (!confirm('優先度が未選択です。「🔴 緊急」に設定しますか？')) return
+      effectivePriority = '🔴 緊急'
+    }
+
     setCreating(true)
     try {
-      const labels = []
-      if (priority) labels.push(priority)
+      const labels = [effectivePriority]
       if (category) labels.push(category)
 
       const issueBody = insertDeadlineToBody(body, deadline)
