@@ -6,7 +6,7 @@ import { parseDeadline, getDeadlineInfo } from '../utils/deadline'
 import { fetchComments } from '../api/github'
 import TaskDetail from './TaskDetail'
 
-function TaskCard({ issue, onUpdate }) {
+function TaskCard({ issue, onUpdate, onClosed }) {
   // 'collapsed' | 'preview' | 'full'
   const [mode, setMode] = useState('collapsed')
   const [comments, setComments] = useState(null) // null = 未取得, [] = 取得済み(0件)
@@ -123,6 +123,7 @@ function TaskCard({ issue, onUpdate }) {
           loadingComments={loadingComments}
           onCommentAdded={handleCommentAdded}
           onUpdate={onUpdate}
+          onClosed={() => onClosed(issue.id)}
         />
       )}
     </div>

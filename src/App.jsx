@@ -112,7 +112,7 @@ function App() {
           <div className="text-center py-8 text-gray-400">タスクがありません</div>
         )}
         {sorted.map((issue) => (
-          <TaskCard key={issue.id} issue={issue} onUpdate={loadIssues} />
+          <TaskCard key={issue.id} issue={issue} onUpdate={loadIssues} onClosed={(id) => setIssues((prev) => prev.filter((i) => i.id !== id))} />
         ))}
       </div>
 

@@ -8,7 +8,7 @@ import CommentForm from './CommentForm'
 const REPO_OWNER = import.meta.env.VITE_REPO_OWNER || ''
 const REPO_NAME = import.meta.env.VITE_REPO_NAME || ''
 
-function TaskDetail({ issue, comments, loadingComments, onCommentAdded, onUpdate }) {
+function TaskDetail({ issue, comments, loadingComments, onCommentAdded, onUpdate, onClosed }) {
   const [operating, setOperating] = useState(false)
 
   // 優先度ラベルを変更
@@ -34,6 +34,7 @@ function TaskDetail({ issue, comments, loadingComments, onCommentAdded, onUpdate
     setOperating(true)
     try {
       await closeIssue(issue.number)
+      if (onClosed) onClosed()
       onUpdate()
     } catch (e) {
       alert('完了処理に失敗しました: ' + e.message)
